@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>database.properties</value>
+        </property>
+    </bean>
+
+    <bean id="HelloWorldPlaceholder" class="com.david.SL.HelloWorld" destroy-method="">
+        <property name="name" value="${jdbc.url}"/>
+    </bean>
+
+    <!--属性注入-->
+    <bean id="helloBeanSetter" class="com.david.SL.HelloWorld">
+        <property name="name" value="David"/>
+    </bean>
+
+    <bean id="helloBeanSig" class="com.david.SL.HelloWorld">
+        <property name="name" value="SingletonBean"/>
+    </bean>
+
+    <bean id="helloBeanPro" class="com.david.SL.HelloWorld" scope="prototype">
+        <property name="name" value="PrototypeBean"/>
+    </bean>
+
+    <!--构造函数注入-->
+    <bean id="helloBeanCons" class="com.david.SL.HelloWorld">
+        <constructor-arg>
+            <value type="java.lang.String">name1</value>
+        </constructor-arg>
+    </bean>
+
+    <!--构造函数注入-->
+    <bean id="helloBeanCons2" class="com.david.SL.HelloWorld">
+        <constructor-arg value="name2" type="java.lang.String"/>
+    </bean>
+
+    <!--构造函数注入-->
+    <bean id="helloBeanCons3" class="com.david.SL.HelloWorld">
+        <constructor-arg value="name3"/>
+    </bean>
+
+    <!--注入时间，FactoryBean 方式-->
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy/MM/dd"/>
+    </bean>
+    <bean id="HelloWorldFactoryBeanCreateTime" class="com.david.SL.HelloWorld">
+        <property name="createTime">
+            <bean factory-bean="dateFormat" factory-method="parse">
+                <constructor-arg value="2018/07/07"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--注入时间，CustomDateEditor方式-->
+    <!--<bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">-->
+        <!--<constructor-arg>-->
+            <!--<bean class="java.text.SimpleDateFormat">-->
+                <!--<constructor-arg value="yyyy/MM/dd"/>-->
+            <!--</bean>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg value="true"/>-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+        <!--<property name="customEditors">-->
+            <!--<map>-->
+                <!--<entry key="java.util.Date">-->
+                    <!--<ref bean="dateEditor"/>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="HelloWorldCustomDateEditorCreateTime" class="com.david.SL.HelloWorld">-->
+        <!--<property name="createTime" value="2018/7/7"/>-->
+    <!--</bean>-->
+</beans>

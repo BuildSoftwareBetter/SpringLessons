@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--不添加此代码将不会生效，context需申明xmlns:context="http://www.springframework.org/schema/context"-->
+    <!--<context:annotation-config />-->
+
+    <!--或者添加此代码-->
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+
+    <!--非抽象bean，可以被实例化-->
+    <bean id="ChinaCustomer" class="com.david.SL.Customer">
+        <property name="country" value="China"/>
+    </bean>
+
+    <!--继承-->
+    <bean id="xiaoming" class="com.david.SL.Customer" parent="ChinaCustomer">
+        <property name="name" value="XiaoMing"/>
+    </bean>
+
+    <!--继承，并覆盖属性值-->
+    <bean id="xiaoli" class="com.david.SL.Customer" parent="ChinaCustomer">
+        <property name="name" value="XiaoLi"/>
+        <!--覆盖-->
+        <property name="country" value="Japen"/>
+    </bean>
+
+    <!--抽象bean，不可以被实例化-->
+    <bean id="ChinaCustomerAbstract" class="com.david.SL.Customer" abstract="true">
+        <property name="country" value="China"/>
+    </bean>
+
+    <!--继承抽象类-->
+    <bean id="lisi" class="com.david.SL.Customer" parent="ChinaCustomerAbstract">
+        <property name="name" value="LiSi"/>
+    </bean>
+
+    <!--模板，不指定类型-->
+    <bean id="CountryTemplate" abstract="true">
+        <property name="country" value="China"/>
+    </bean>
+
+    <!--继承模板-->
+    <bean id="zhangsan" class="com.david.SL.Customer" parent="CountryTemplate">
+        <property name="name" value="ZhangSan"/>
+    </bean>
+
+    <bean id="Customer1" class="com.david.SL.Customer">
+        <constructor-arg value="China"/>
+        <!--name 163-->
+        <constructor-arg value="163"/>
+        <constructor-arg value="1"/>
+    </bean>
+
+    <bean id="Customer2" class="com.david.SL.Customer">
+        <constructor-arg value="China"/>
+        <constructor-arg value="2"/>
+        <constructor-arg value="2"/>
+    </bean>
+
+</beans>

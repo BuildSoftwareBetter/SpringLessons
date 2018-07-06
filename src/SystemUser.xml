@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="UserAdmin" class="com.david.SL.User" scope="singleton">
+        <property name="name" value="AdminUser"/>
+        <property name="role">
+            <ref bean="RoleAdmin"/>
+        </property>
+    </bean>
+
+    <bean id="UserGuest" class="com.david.SL.User">
+        <property name="name" value="Guest1"/>
+        <property name="role">
+            <!--内部bean实例-->
+            <bean class="com.david.SL.Role">
+                <property name="name" value="Guest"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

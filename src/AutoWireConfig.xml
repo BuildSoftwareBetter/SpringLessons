@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="RoleAdmin" class="com.david.SL.Role">
+        <property name="name" value="Admin"/>
+    </bean>
+
+    <!--有两个Role类的bean时，byType方式自动装配将抛出异常-->
+    <!--<bean id="RoleSystem" class="com.david.SL.Role">-->
+    <!--<property name="name">-->
+    <!--<value type="java.lang.String">System</value>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--自动装配-->
+
+    <!--no 默认装配方式，使用ref-->
+    <!--<bean id="UserAdminDefault" class="com.david.SL.User">-->
+        <!--<property name="name" value="UserAdminDefault"/>-->
+        <!--<property name="role">-->
+            <!--<ref bean="RoleAdmin"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--byType-->
+    <!--<bean id="UserAdminByType" class="com.david.SL.User" autowire="byType">-->
+        <!--<property name="name" value="UserAdminByType"/>-->
+    <!--</bean>-->
+
+    <!--byName-->
+    <!--<bean id="UserAdminByName" class="com.david.SL.User" autowire="byName">-->
+        <!--<property name="name" value="UserAdminByName"/>-->
+    <!--</bean>-->
+    <bean id="role2" class="com.david.SL.Role">
+        <property name="name" value="AdminRole"/>
+    </bean>
+
+    <!--constructor-->
+    <bean id="UserAdminByConstructor" class="com.david.SL.User" autowire="constructor">
+        <property name="name" value="UserAdminByConstructor"/>
+    </bean>
+
+    <bean class="org.springframework.aop.support.NameMatchMethodPointcut">
+        <!--匹配名称为run的方法-->
+        <property name="mappedName" value="run"/>
+    </bean>
+    <bean class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <!--匹配方法中含run字符串的方法-->
+        <property name="pattern" value=".*run.*"/>
+    </bean>
+</beans>

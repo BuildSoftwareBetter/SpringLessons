@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookBean" class="com.david.SL.Book">
+
+        <!--普通属性设置-->
+        <!--<property name="name" value="Computer Networking"/>-->
+
+        <!--使用EL，并调用String的toUpperCase()方法设置属性-->
+        <property name="name" value="#{'Computer Networking'.toUpperCase()}"/>
+    </bean>
+
+    <bean id="bookDetail" class="com.david.SL.BookDetail">
+        <property name="book" value="#{bookBean}"/>
+
+        <!--使用EL并使用bean对象的属性设置属性值-->
+        <!--<property name="bookName" value="#{bookBean.name}"/>-->
+
+        <!--使用EL并调用bean对象的无参方法设置属性值-->
+        <property name="bookName" value="#{bookBean.getName()}"/>
+
+        <!--使用EL并调用bean对象的有参方法设置属性值-->
+        <!--<property name="bookName" value="#{bookBean.getFullName('v1.0 ')}"/>-->
+    </bean>
+
+</beans>
